@@ -95,6 +95,39 @@ resource "aws_network_acl" "dataplane" {
   }
 }
 
+# // Firewall & PrivateLink NACLs
+# resource "aws_network_acl" "egress" {
+#   vpc_id = aws_vpc.dataplane_vpc.id
+#   //subnet_ids = concat(aws_subnet.public[*].id, aws_subnet.firewall[*].id, aws_subnet.privatelink[*].id)
+
+#    dynamic "ingress" {
+#     for_each = local.sg_egress_ports
+#     content {
+#       from_port   = ingress.value
+#       to_port     = ingress.value
+#       protocol    = "tcp"
+#       cidr_block  = "0.0.0.0/0"
+#       action      = "ALLOW"
+#       rule_no     = ingress.key + 200
+#     }
+#   }
+
+#   dynamic "egress" {
+#     for_each = local.sg_egress_ports
+#     content {
+#       from_port   = egress.value
+#       to_port     = egress.value
+#       protocol    = "tcp"
+#       cidr_block  = "0.0.0.0/0"
+#       action      = "ALLOW"
+#       rule_no     = egress.key + 200
+#     }
+#   }
+#   tags = {
+#     Name = "${local.prefix}-egress-nacl"
+#   }
+# }
+
 // IGW
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.dataplane_vpc.id

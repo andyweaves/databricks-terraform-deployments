@@ -22,6 +22,11 @@ data "aws_iam_policy_document" "databricks_managed_services_cmk" {
       "kms:Decrypt"
     ]
     resources = ["*"]
+    condition {
+      test     = "StringEquals"
+      variable = "aws:PrincipalTag/DatabricksAccountId"
+      values   = [var.databricks_account_id]
+    }
   }
 }
 
@@ -52,6 +57,11 @@ data "aws_iam_policy_document" "databricks_storage_cmk" {
       "kms:DescribeKey"
     ]
     resources = ["*"]
+    condition {
+      test     = "StringEquals"
+      variable = "aws:PrincipalTag/DatabricksAccountId"
+      values   = [var.databricks_account_id]
+    }
   }
   statement {
     sid    = "Allow Databricks to use KMS key for DBFS (Grants)"
@@ -70,6 +80,11 @@ data "aws_iam_policy_document" "databricks_storage_cmk" {
       test     = "Bool"
       variable = "kms:GrantIsForAWSResource"
       values   = ["true"]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "aws:PrincipalTag/DatabricksAccountId"
+      values   = [var.databricks_account_id]
     }
   }
   statement {

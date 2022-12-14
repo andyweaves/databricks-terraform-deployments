@@ -13,3 +13,7 @@ variable "cmk_admin" {
 variable "region" {
     type = string
 }
+
+variable "databricks_account_id" {
+    type = string
+}

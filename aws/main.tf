@@ -22,6 +22,7 @@ module "databricks_cmk" {
   resource_prefix        = local.prefix
   region                 = var.region
   cmk_admin              = var.cmk_admin
+  databricks_account_id  =  var.databricks_account_id
 }
 
 module "databricks_mws_workspace" {
