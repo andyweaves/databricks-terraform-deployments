@@ -1,1 +1,1 @@
-# databricks-terraform-e2e-examples
+# databricks-terraform-deployments
